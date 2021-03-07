@@ -1,0 +1,33 @@
+version: "3"
+services:
+  nodejs:
+    container_name: nodejs
+    image: dsaltz432/node-starter-project # name and tag the image
+    build: .
+    restart: always
+    ports:
+      - "8080:3000" # <host-port:container-port>. Access the webapp using the "host-port".
+    environment:
+      PORT: 3000 # port used for the webapp. if running through docker, this must match the "container-port"
+      MONGO_CONNECTION_STRING: mongodb://mongo:27017
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    links:
+      - mongo
+      - redis
+    depends_on:
+      - mongo
+      - redis
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    command: mongod --quiet --logpath /dev/null # makes mongo quieter on startup
+    volumes:
+      - ./mongo-volume:/data/db
+  redis:
+    container_name: redis
+    image: redis:alpine
+    ports:
+      - "6379:6379"

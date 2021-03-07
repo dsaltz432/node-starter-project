@@ -1,0 +1,21 @@
+{
+  "extends":"strongloop",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "impliedStrict":  true
+  },
+
+  "env": {
+    "es6": true,
+    "jest": true
+  },
+  "rules": {
+    "max-len": ["off", 120, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false,
+      "ignoreRegExpLiterals": true,
+      "ignoreStrings": false,
+      "ignoreTemplateLiterals": false
+    }]
+  }
+}
